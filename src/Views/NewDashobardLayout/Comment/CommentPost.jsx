@@ -10,7 +10,7 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import PostDropdown from "../LanguageLearning/PostDropdown";
 import { HiHandThumbDown } from "react-icons/hi2";
-import TagModal from "../Createpost/TagModal";
+import TagModal from "../CreatePost/TagModal";
 import CustomNestedComment from "./CustomNestedComment";
 import { IoIosReorder } from "react-icons/io";
 import { formatDateString } from "@utils/helper/general";
