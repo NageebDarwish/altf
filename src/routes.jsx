@@ -1,5 +1,6 @@
 import {  useLocation, useRoutes } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Landing from "./Views/Landing/Landing";
 import RootLayout from "./layout/RootLayout/RootLayout";
 import WatchVideos from "./Views/WatchVideos/WatchVideos";
@@ -62,10 +63,13 @@ import BlogsLanding from "./Views/Landing/Blog/BlogsLanding.jsx";
 
 import PricingPlans from "./Views/Landing/components/Content/InputSection.jsx";
 import TermsAndConditions from "./Views/TermsAndConditions/index.jsx";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export default function Router() {
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
   const location = useLocation();
+  const isAuthenticated = useSelector((state) => state?.user?.isAuthenticated);
+  
   useEffect(() => {
     const isWelcomePopupShown = localStorage.getItem("welcomePopupShown");
 
@@ -155,7 +159,7 @@ export default function Router() {
 
         // { path: "free-membership-plan", element: <StartLarning2 /> },
 
-        { path: "primium-membership-plan", element: <StartLarning2 /> },
+        { path: "primium-membership-plan", element: <ProtectedRoutes isLogged={isAuthenticated}><StartLarning2 /></ProtectedRoutes> },
       ],
     },
 
@@ -168,7 +172,7 @@ export default function Router() {
         { path: "series", element: <WatchSeries /> },
         { path: "resources", element: <AllResources /> },
         { path: "blog", element: <BlogsLanding /> },
-        { path: "profile", element: <Profile /> },
+        { path: "profile", element: <ProtectedRoutes isLogged={isAuthenticated}><Profile /></ProtectedRoutes> },
         { path: "no-vedio", element: <NoVideo /> },
         { path: "vedio-list", element: <VideoList /> },
         { path: "series-list", element: <MySeriesList /> },

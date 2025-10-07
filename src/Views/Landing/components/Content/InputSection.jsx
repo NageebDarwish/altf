@@ -50,6 +50,16 @@ const PricingPlans = () => {
   const handleNavigate = async (planName, cycle) => {
     try {
       setCheckoutLoading(true);
+      
+      // For paid plans, check authentication first
+      if (planName.toLowerCase() !== "free") {
+        if (!isAuthenticated) {
+          toast.error("Please sign in to subscribe to premium plans");
+          navigate("/sign-in");
+          return;
+        }
+      }
+      
       // For free plan, keep existing flow
       if (planName.toLowerCase() === "free") {
         const selectedPlan = plans.find((p) => p.name === planName && p.cycle === cycle);
