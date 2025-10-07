@@ -8,7 +8,7 @@ import {
 } from "react-icons/hi";
 import { HiHandThumbDown } from "react-icons/hi2";
 import PostDropdown from "./PostDropdown";
-import TagModal from "../Createpost/TagModal";
+import TagModal from "../CreatePost/TagModal";
 import { useNavigate } from "react-router-dom";
 import { formatDateString } from "../../../utils/helper/general";
 import { request } from "../../../services/axios";

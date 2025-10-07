@@ -8,7 +8,7 @@ import {
 } from "react-icons/hi";
 import { HiHandThumbDown } from "react-icons/hi2";
 import PostDropdown from "../LanguageLearning/PostDropdown";
-import TagModal from "../Createpost/TagModal";
+import TagModal from "../CreatePost/TagModal";
 import axios from "axios";
 import PusherCustom from "../../../utils/helper/hooks/PusherCustom";
 import { useSelector } from "react-redux";
