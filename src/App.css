@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+
+ 
+
+}
+.custom-html h1,
+.custom-html h2,
+.custom-html h3,
+.custom-html h4,
+.custom-html h5,
+.custom-html h6 {
+  color: orange;
+}
+.custom-html h1{
+  font-size: 2em;
+}
+.custom-html h2{
+  font-size: 1.5em;
+}
+.custom-html h3{
+  font-size: 1.17em;
+}
+.custom-html h4{
+  font-size: 1em;
+}
+.custom-html h5{
+  font-size: 83em;
+}
+.custom-html h6{
+  font-size: 67em;
+}
+
+.custom-html li,
+.custom-html p {
+  color: #3b82f6; /* Tailwind's 'text-primary' equivalent, usually blue-500 */
+}
+
+.custom-html ul {
+  list-style-type: disc; /* • Dots */
+  padding-left: 1.5rem; /* Optional: spacing */
+}
+
+.custom-html ol {
+  list-style-type: decimal; /* 1. 2. 3. */
+  padding-left: 1.5rem;
+}
+
+.custom-html ul li,
+.custom-html ol li {
+  margin-bottom: 0.5rem;
+  color: #3b82f6; /* Blue text for all list items */
+}
+
+
+
+
+/* Hide scrollbar for Chrome, Safari, and Edge */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+
+/* @font-face {
+  font-family: 'Helvetica';
+  src: url('/fonts/Helvetica.woff2') format('woff2'),
+       url('/fonts/Helvetica.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+} */
+/* 
+@font-face {
+  font-family: "Pally";
+  src: url("/fonts/Pally.woff2") format("woff2"),
+       url("/fonts/Pally.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+} */
+
+
+.comment-system {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.comment-form {
+  margin-bottom: 20px;
+}
+
+.comment-form input {
+  width: 70%;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.comment {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.comment.reply {
+  margin-left: 40px;
+  background-color: #f0f0f0;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.comment-content {
+  margin-bottom: 10px;
+}
+
+.comment-actions button {
+  margin-right: 10px;
+  padding: 3px 8px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comment-actions button.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.reply-form {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 3px;
+}
+
+.reply-form input {
+  width: 70%;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+.toggle-replies {
+  background: none;
+  border: none;
+  color: #0066cc;
+  cursor: pointer;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.replies {
+  margin-top: 10px;
+  border-left: 2px solid #ccc;
+  padding-left: 20px;
+}
+
+
+
+.slick-dots li button:before {
+  font-size: 12px !important; 
+  color: #D9D9D9 !important;  
+  opacity: 1 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #F28327 !important;   
+}
+
+.slick-prev {
+  left: 3px !important;   
+  z-index: 10;
+}
+
+.slick-next {
+  right: 25px !important; 
+  z-index: 10;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px !important; 
+  color: #FFF !important;   
+  opacity: 1 !important;
+}
+
+.react-calendar {
+  border: none !important;   
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);  
+  border-radius: 10px;  
+  padding: 10px;  
+}
+
+.selected-date {
+  background-color: #F28327 !important;  
+  color: white !important;
+  border-radius: 900px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.font-HelveticaNeue * {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+

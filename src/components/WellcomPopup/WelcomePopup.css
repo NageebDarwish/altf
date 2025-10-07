@@ -1,0 +1,216 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+}
+
+.welcome-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 26px;
+  padding: 15px;
+  width: 95%;
+  max-width: 872px;
+  max-height: 90vh;
+  height: auto;
+  min-height: 400px;
+  overflow-y: auto;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.progress-indicator {
+  background: #e9ecef;
+  border-radius: 5px;
+  height: 5px;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  background: #007bff;
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+
+.heading-title {
+  margin: 15px 0;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #343a40;
+}
+
+.heading-head {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #495057;
+  margin-top: 7px;
+}
+
+.options {
+  margin: 20px 0;
+}
+.options p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #6c757d;
+}
+.familiar-option {
+  width: 100%;
+}
+.radio-option label {
+  width: 570px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.radio-option {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+}
+.radio-option input {
+  margin-right: 10px;
+}
+.radio-option label {
+  padding: 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.radio-option label:hover {
+  background-color: #f1f3f5;
+}
+
+.option-button.highlighted {
+  background-color: #28a745;
+}
+
+.option-button:hover {
+  opacity: 0.8;
+}
+
+.navigation-buttons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 10px 10px;
+  width: 20%;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+.navigation-buttons button:hover {
+  background-color: #fcba03;
+  color: white;
+}
+.navigation-buttons button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.slide-sequence {
+  margin: 20px 0;
+}
+.start-button,
+.learn-more-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.start-button:hover,
+.learn-more-button:hover {
+  background-color: #45a049;
+}
+
+.progress-indicator {
+  background: #e9ecef;
+  border-radius: 5px;
+  height: 5px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.nav-button,
+.skip-button,
+.start-button,
+.learn-more-button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 12px;
+}
+
+.nav-button:disabled,
+.skip-button:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+
+.skip-button:hover {
+  background-color: #fcba03;
+}
+
+@media (max-width: 768px) {
+  .welcome-popup {
+    width: 95%;
+    max-width: 95%;
+    max-height: 95vh;
+    padding: 15px;
+    overflow-y: auto;
+    border-radius: 16px;
+  }
+
+  .navigation-buttons button,
+  .skip-button {
+    font-size: 0.9rem;
+    width: 48%;
+  }
+
+  .skip-button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-popup {
+    width: 98%;
+    max-width: 98%;
+    max-height: 98vh;
+    padding: 10px;
+    overflow-y: auto;
+    border-radius: 12px;
+  }
+}

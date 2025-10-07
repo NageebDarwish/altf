@@ -1,0 +1,48 @@
+/* Webkit browsers (Chrome, Safari) */
+
+.slider input[type="range"] {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  width: 500px;
+  height: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+.slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px; /* Height of the thumb */
+  width: 24px; /* Width of the thumb */
+  background-color: #0284c7; /* Thumb color */
+  border-radius: 50%; /* Make it a circle */
+  cursor: pointer; /* Cursor style */
+  border: 2px solid #ffffff; /* Optional white border for contrast */
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 24px;
+  width: 24px;
+  background-color: #0284c7;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ffffff; /* Optional white border */
+}
+
+/* Customize the appearance of the slider track (optional) */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 3px;
+}
+
+
