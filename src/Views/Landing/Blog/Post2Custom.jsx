@@ -71,7 +71,10 @@ const Post2Custom = ({
   const [snackbarMessage, setSnackbarMessage] = useState("Link copied!");
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row h-full transition-all duration-300 hover:shadow-xl">
+    <div 
+      onClick={handleNavigate}
+      className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row h-full transition-all duration-300 hover:shadow-xl cursor-pointer"
+    >
       <img
         src={cover_image}
         alt={title}
@@ -88,9 +91,7 @@ const Post2Custom = ({
                 day: "numeric",
               })}
             </p>
-            <span className="text-xs sm:text-sm text-[#0C3373] font-medium bg-blue-50 px-2 py-1 rounded-full">
-              3 min read
-            </span>
+
           </div>
           <h6 className="font-bold text-lg sm:text-xl md:text-2xl font-pally text-[#0C3373] mb-3 line-clamp-2">
             {title}
@@ -102,26 +103,33 @@ const Post2Custom = ({
 
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mt-4">
           <button
-            onClick={handleNavigate}
             className="bg-orange-500 text-white px-4 py-2 sm:px-5 sm:py-3 font-[700] rounded-full text-sm w-full sm:w-auto"
           >
             Read More
           </button>
           <div className="flex gap-4 justify-center sm:justify-end">
-            <button onClick={handleTwitterShare} className="hover:scale-110 transition-transform">
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleTwitterShare();
+            }} className="hover:scale-110 transition-transform">
               <FaXTwitter className="text-lg sm:text-xl md:text-2xl text-btnbackground cursor-pointer" />
             </button>
-            <button onClick={handleFacebookShare} className="hover:scale-110 transition-transform">
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleFacebookShare();
+            }} className="hover:scale-110 transition-transform">
               <CiFacebook className="text-lg sm:text-xl md:text-2xl text-btnbackground cursor-pointer" />
             </button>
-            <button onClick={() => {
+            <button onClick={(e) => {
+              e.stopPropagation();
               setSnackbarMessage("Link copied! You can paste it in your Instagram story or bio.");
               handleInstagramShare();
             }} className="hover:scale-110 transition-transform">
               <FaInstagram className="text-lg sm:text-xl md:text-2xl text-btnbackground cursor-pointer" />
             </button>
             <button
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setSnackbarMessage("Link copied to clipboard!");
                 navigator.clipboard
                   .writeText(blogUrl)

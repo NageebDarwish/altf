@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Landing from "./Views/Landing/Landing";
 import RootLayout from "./layout/RootLayout/RootLayout";
+import PublicOnlyRoutes from "./PublicOnlyRoutes";
 import WatchVideos from "./Views/WatchVideos/WatchVideos";
 import WatchSeries from "./Views/WatchSeries/WatchSeries";
 import WatchLibrary from "./Views/WatchLibrary/WatchLibrary";
@@ -85,10 +86,10 @@ export default function Router() {
   // Stripe fully removed from frontend. Checkout is now backend-only redirect.
   let element = useRoutes([
     { path: "/subscriptions", element: <PremiumMembership /> },
-    { path: "/sign-in", element: <SignIn /> },
-    { path: "/sign-up", element: <Signup /> },
+    { path: "/sign-in", element: <PublicOnlyRoutes isLogged={isAuthenticated}><SignIn /></PublicOnlyRoutes> },
+    { path: "/sign-up", element: <PublicOnlyRoutes isLogged={isAuthenticated}><Signup /></PublicOnlyRoutes> },
     { path: "/price", element: <Price /> },
-    { path: "/otp-authentication", element: <OtpAuthentications /> },
+    { path: "/otp-authentication", element: <PublicOnlyRoutes isLogged={isAuthenticated}><OtpAuthentications /></PublicOnlyRoutes> },
 
     {
       path: "/newdashboard",

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import Levels from "./Levels";
+import Levels, { levelsData } from "./Levels";
 import Progress2Section2 from "./Progress2Section2";
 import BatchProgress2 from "./BatchProgress2";
 import { request } from "../../services/axios";
@@ -295,20 +295,36 @@ const Progress2 = () => {
   const { level, remainingHours, progressPercent, rangeStart, rangeEnd } =
     determineLevelInfo(watchedHours);
 
-  const levelImages = {
-    "Level 1": "/level 1.png",
-    "Level 2": "/level 2.png",
-    "Level 3": "/level 3.png",
-    "Level 4": "/level 4.png",
-    "Level 5": "/level 5.png",
-    "Level 6": "/level 6.png",
-    "Level 7": "/level 7.png",
-    "Level 8": "/level 8.png",
-    "Level 9": "/level 9.png",
-    "Level 10": "/level 10.png",
+  console.log('Progress Debug:', {
+    watchedHours,
+    level,
+    progressPercent,
+    rangeStart,
+    rangeEnd
+  });
+
+  // Get current level data from levelsData
+  const getCurrentLevelData = (levelName) => {
+    return levelsData.find(levelData => levelData.title === levelName) || levelsData[0];
   };
 
-  const levelImageSource = levelImages[level];
+  const currentLevelData = getCurrentLevelData(level);
+
+  // Level colors mapping
+  const levelColors = {
+    "Level 1": "#53D0EF",
+    "Level 2": "#08BBE8", 
+    "Level 3": "#47F15D",
+    "Level 4": "#1CC932",
+    "Level 5": "#F9DA38",
+    "Level 6": "#F2CC08",
+    "Level 7": "#F29142",
+    "Level 8": "#FF7300",
+    "Level 9": "#3B73CC",
+    "Level 10": "#0C3373"
+  };
+
+  const currentLevelColor = levelColors[level] || "#0C3373";
 
   return (
     <>
@@ -324,19 +340,75 @@ const Progress2 = () => {
       {showBadgePopup && latestBadge && (
         <BadgesPopup badge={latestBadge} onClose={handleBadgePopupClose} />
       )}
-      <div className="w-full flex flex-col xl:flex-row justify-between gap-4 items-center mt-20 md:mt-7 mb-10 px-3 md:mb-0">
+      <div className="w-full flex flex-col xl:flex-row justify-between gap-4 items-center md:mt-7 mb-10 px-3 md:mb-0">
         {/* Left Card */}
-        <div className="w-full xl:w-[450px] xl:h-[450px] bg-white rounded-[13px] flex flex-col justify-center p-8 shadow-lg">
-          <img
-            src={levelImageSource || "/level 1.webp"}
-            alt="Level Icon"
-            className="mx-auto object-center"
-          />
+        <div className="w-full xl:w-[450px] bg-white rounded-[13px] flex flex-col justify-center px-8 py-12 shadow-lg">
+          <div className="relative mx-auto w-48 h-32">
+            <div className="absolute inset-0 flex items-center justify-center">
+               {Array.from({ length: 10 }, (_, index) => {
+                 const segmentAngle = 19.5;
+                 const gapAngle = 4;
+                  let startAngle;
+                  if (index === 0) {
+                    startAngle = -195; 
+                  } else if (index === 9) {
+                    startAngle = 15; 
+                  } else {
+                    startAngle = -195 + (index * (segmentAngle + gapAngle));
+                  }
+                 const radius = 90; 
+                 // Ensure at least one segment is active (for beginners with 0% progress)
+                 const segmentsToShow = Math.max(1, Math.ceil((progressPercent / 100) * 10));
+                 const isActive = (index + 1) <= segmentsToShow;
+                const angleInRadians = (startAngle * Math.PI) / 180;
+                const x = Math.cos(angleInRadians) * radius;
+                const y = Math.sin(angleInRadians) * radius;
+                
+                return (
+                  <div
+                    key={index}
+                    className="absolute w-[18px] h-[55px] bg-gray-300 rounded-lg"
+                    style={{
+                      left: `calc(50% + ${x}px - 8px)`,
+                      top: `calc(50% + ${y}px - 17.5px)`,
+                      transform: `rotate(${index === 0 ? -85 : index === 9 ? 85 : index == 1 ? startAngle + 100: index == 8 ? startAngle - 100 : startAngle + 90}deg)`,
+                      backgroundColor: isActive ? currentLevelColor : '#e5e7eb',
+                      transition: 'background-color 0.3s ease-in-out'
+                    }}
+                  />
+                );
+              })}
+            </div>
+            
+            {/* Level Image in center */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="flex flex-col items-center">
+                <img
+                  src={currentLevelData.image}
+                  alt={`${currentLevelData.title} Icon`}
+                  className="w-20 h-20 object-contain"
+                />
+              </div>
+            </div>
+          </div>
+          
           <p className="text-xl font-HelveticaNeue text-center">
-            {levels?.progress_level?.name ?? "1"}
+            Your current level is
           </p>
-          <p className="text-[#1CC932] text-center font-pally font-bold text-[32px]">
-            Beginner
+          <p 
+            className="text-center font-pally font-bold text-[32px]"
+            style={{ color: currentLevelColor }}
+          >
+            {currentLevelData.title === "Level 10" ? "Advanced" : 
+             currentLevelData.title === "Level 1" ? "Beginner" :
+             currentLevelData.title === "Level 2" ? "Novice" :
+             currentLevelData.title === "Level 3" ? "Elementary" :
+             currentLevelData.title === "Level 4" ? "Pre-Intermediate" :
+             currentLevelData.title === "Level 5" ? "Intermediate" :
+             currentLevelData.title === "Level 6" ? "Upper-Intermediate" :
+             currentLevelData.title === "Level 7" ? "Advanced" :
+             currentLevelData.title === "Level 8" ? "Proficient" :
+             currentLevelData.title === "Level 9" ? "Expert" : "Beginner"}
           </p>
 
           <div className="flex justify-between font-HelveticaNeue mt-3">
@@ -360,17 +432,20 @@ const Progress2 = () => {
             />
           </div>
           <div className="flex justify-between font-HelveticaNeue">
-            <p className="text-[16px] first-line: text-md text-[#828282] mt-2">
-              <p className="text-[16px] text-[#828282] mt-2">{rangeStart}hrs</p>
+            <p className="text-[16px] text-[#828282] mt-2">
+              {rangeStart}hrs
             </p>
-            <p className="text-[16px] text-[#828282] mt-2">{rangeEnd}hrs</p>
+            <p className="text-[16px] text-[#828282] mt-2">
+              {rangeEnd === "∞" ? "∞" : `${rangeEnd}hrs`}
+            </p>
           </div>
+          
         </div>
 
         <div className="w-full  bg-white rounded-[13px] shadow-lg p-5 flex flex-col xl:flex-row gap-6">
           <div className="w-full xl:w-[50%]">
             <div className="flex gap-3 items-center justify-center">
-              <img src="/flame-icon 1svg 1.webp" alt="" />
+              <img src="/flame-icon 1svg 1.png" alt="" />
               <p className="text-[32px] font-bold font-pally text-heading">
                 <span className="text-dashboardPrimary">
                   {" "}

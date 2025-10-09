@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LevelCard from "./LevelCard";
 
+// Import shared level data
 const levelsData = [
   {
     title: "Level 1",
@@ -39,7 +40,7 @@ const levelsData = [
     hours: "201-300",
     words: "~3000",
     description:
-      "You can understand patient native speakers on familiar topics and find yourself naturally producing some words and phrases. You can start watching Intermediate videos or continue watching Beginner videos. Avoid speaking even if it’s tempting.",
+      "You can understand patient native speakers on familiar topics and find yourself naturally producing some words and phrases. You can start watching Intermediate videos or continue watching Beginner videos. Avoid speaking even if it's tempting.",
     image: "/five.png",
   },
   {
@@ -47,7 +48,7 @@ const levelsData = [
     hours: "301-400",
     words: "~4000",
     description:
-      "You can understand faster speech and can increasingly produce words and phrases. Try to increase the number of hours you watch as you can find more interesting content. Watch Intermediate videos and avoid speaking even if it’s tempting",
+      "You can understand faster speech and can increasingly produce words and phrases. Try to increase the number of hours you watch as you can find more interesting content. Watch Intermediate videos and avoid speaking even if it's tempting",
     image: "/six.png",
   },
   {
@@ -83,6 +84,9 @@ const levelsData = [
     image: "/nine.png",
   },
 ];
+
+// Export the data so it can be imported by other components
+export { levelsData };
 
 const Levels = () => {
   const [openIndex, setOpenIndex] = useState(null);

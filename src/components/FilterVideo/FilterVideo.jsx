@@ -56,8 +56,6 @@ const FilterVideo = ({
   const [mobileSearchValue, setMobileSearchValue] = useState("");
 
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const levelId = queryParams.get("level");
 
   const mainFilters = [
     {
@@ -277,12 +275,6 @@ const FilterVideo = ({
     }
   }, [setVideoData, set_loading, checked]);
 
-  useEffect(() => {
-    if (levelId) {
-      const filter = { levels: [levelId], guides: [], topics: [] };
-      sendFiltersToAPI(filter);
-    }
-  }, [levelId, sendFiltersToAPI]);
 
   const handleSearchClick = () => {
     setShowSearchBar(true);
@@ -336,7 +328,11 @@ const FilterVideo = ({
           
         <Box className="flex flex-wrap items-center gap-3 md:px-[8px] py-1 border-t md:py-[8px] md:gap-[12px] mt-10 md:mt-0 bg-white md:rounded-xl ">
           {/* Sort By - Always visible */}
-          <Grid item xs={12} sm={6} md={3} lg={2}>
+          <Grid item xs={4}
+              sm={6}
+              md={4}
+              lg={3}
+              sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
               variant="outlined"
               startIcon={
@@ -353,7 +349,7 @@ const FilterVideo = ({
                   xs: 0,
                   md: "12px",
                 },
-                padding: "6px 6px",
+                padding: "8px 16px",
                 fontSize: { xs: "12px", sm: "14px", lg: "16px" },
                 width: "100%",
                 border: "none",
@@ -393,6 +389,7 @@ const FilterVideo = ({
                 },
                 padding: "6px 6px",
                 fontSize: { xs: "12px", sm: "14px" },
+                
                 width: "100%",
                 border: "none",
               }}
@@ -408,8 +405,8 @@ const FilterVideo = ({
               item
               xs={4}
               sm={6}
-              md={3}
-              lg={2}
+              md={4}
+              lg={3}
               sx={{ display: { xs: "none", sm: "block" } }}
             >
               <Button
@@ -433,9 +430,10 @@ const FilterVideo = ({
                   borderColor: "rgba(0, 0, 0, 0.1)",
                   textTransform: "none",
                   borderRadius: "12px",
-                  padding: "6px 6px",
+                  padding: "8px 16px",
                   fontSize: { xs: "12px", sm: "14px", lg: "16px" },
                   width: "100%",
+                  fontWeight: 500,
                 }}
                 className="font-HelveticaNeue"
               >
@@ -518,6 +516,8 @@ const FilterVideo = ({
             setActiveSubFilter(null);
           }}
           fullScreen={isSmallScreen}
+          hideBackdrop={!isSmallScreen}
+          disableScrollLock={true}
           PaperProps={{
             sx: isSmallScreen
               ? {
@@ -535,7 +535,7 @@ const FilterVideo = ({
                   p: 0,
                   borderRadius: 1,
                   boxShadow: 3,
-                  minWidth: 200,
+                  width: anchorEl ? anchorEl.offsetWidth : 200,
                   maxHeight: "80vh",
                   overflow: "auto",
                   zIndex: 1301,
@@ -543,11 +543,11 @@ const FilterVideo = ({
           }}
         >
           <DialogContent sx={{ p: 0, m: 0 }}>
-            <div className="px-2 py-2 border bg-[#f9f9f9] flex justify-between">
-              <h1 onClick={handlenavigatevideo} className="md:hidden block">
+            <div className="px-2 py-2 border bg-[#f9f9f9] flex justify-between md:hidden">
+              <h1 onClick={handlenavigatevideo} className="block">
                 <FaChevronLeft className="mt-2 text-3xl" />
               </h1>
-              <h1 className="text-3xl md:text-xl ">
+              <h1 className="text-3xl">
                 {selectedFilter === "Filters"
                   ? activeSubFilter || "Filters"
                   : selectedFilter}
@@ -575,13 +575,14 @@ const FilterVideo = ({
                       onClick={() => handleSortChange(item.value)}
                       sx={{
                         width: "100%",
+                        py: 1.5,
+                        px: 2,
                         "&:hover": {
-                          bgcolor: "#F28327",
-                          color: "white",
+                          bgcolor: "#f5f5f5",
                         },
                       }}
                     >
-                      <Typography sx={{ fontSize: "16px" }}>
+                      <Typography sx={{ fontSize: "14px", fontWeight: 400 }}>
                         {item.label}
                       </Typography>
                     </MenuItem>
@@ -623,9 +624,19 @@ const FilterVideo = ({
                   );
                 } else {
                   return (
-                    <MenuItem key={index} disableRipple>
+                    <MenuItem 
+                      key={index} 
+                      disableRipple
+                      sx={{
+                        py: 1.5,
+                        px: 2,
+                        "&:hover": {
+                          bgcolor: "#f5f5f5",
+                        },
+                      }}
+                    >
                       <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 0 }}
+                        sx={{ display: "flex", alignItems: "center", gap: 1, width: "100%" }}
                       >
                         <Checkbox
                           checked={
@@ -640,19 +651,39 @@ const FilterVideo = ({
                             )
                           }
                           sx={{
+                            p: 0,
                             "& .MuiSvgIcon-root": {
-                              color: "#F28327",
+                              fontSize: 20,
+                              color: "#d0d0d0",
                             },
                             "&.Mui-checked": {
                               color: "#F28327",
                             },
                           }}
                         />
-                        <Typography variant="body2">{item.name}</Typography>
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontSize: "14px",
+                            fontWeight: 400,
+                            flex: 1,
+                          }}
+                        >
+                          {item.name}
+                        </Typography>
+                        {item.count && (
+                          <Typography 
+                            variant="body2" 
+                            sx={{ 
+                              fontSize: "12px",
+                              color: "#666",
+                              fontWeight: 500,
+                            }}
+                          >
+                            {item.count}
+                          </Typography>
+                        )}
                       </Box>
-                      <Typography variant="body2" sx={{ marginLeft: "auto" }}>
-                        {item.count}
-                      </Typography>
                     </MenuItem>
                   );
                 }

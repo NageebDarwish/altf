@@ -8,7 +8,7 @@ const UpperCustomCard = ({ title, description, buttonText, navigateTo, img }) =>
     <div className="bg-white px-4 py-5 rounded-2xl shadow-lg transition duration-300 border  flex flex-col">
       <div className="flex flex-col gap-2 items-center text-center flex-grow">
         <img src={img} alt={title} className="h-[120.71px] object-contain mb-4" />
-        <h2 className="text-[32px] font-bold font-pally text-bluePrimary">{title}</h2>
+        <h2 className="text-[32px] font-bold font-pally text-heading">{title}</h2>
         <p className="text-gray-600 font-HelveticaNeue font-semibold text-[12px] flex-grow">{description}</p>
       </div>
 

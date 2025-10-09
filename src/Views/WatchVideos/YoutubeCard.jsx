@@ -229,7 +229,7 @@ const YoutubeCard = ({
         backgroundRepeat: "no-repeat",
         width: "100%",
         borderRadius: { xs: "10px", md: "11px" },
-        minHeight: 250,
+        height: "100%",
       }}
       onClick={isPremium ? handlePremiumClick : undefined}
     >
@@ -349,7 +349,7 @@ const YoutubeCard = ({
             flexDirection: { sm: "row", md: "row" },
             gap: "5px",
             justifyContent: "flex-start",
-            alignItems: "start",
+            alignItems: "center",
             height: "100%",
           }}
         >
@@ -368,7 +368,7 @@ const YoutubeCard = ({
                     ? "#F2CC08"
                     : "#ccc", // Default color
               }}
-              className="md:px-6 px-2 py-1 text-[8px] md:text-[12px] font-HelveticaNeue md:py-2 font-bold md:font-semibold rounded-xl md:rounded-full flex items-start justify-start gap-2 text-white"
+              className="md:px-6 px-2 py-1 text-[8px] md:text-[12px] font-HelveticaNeue md:py-2 font-bold md:font-semibold rounded-xl md:rounded-full flex items-center justify-start gap-2 text-white"
             >
               <img
                 src={
@@ -376,9 +376,9 @@ const YoutubeCard = ({
                     ? "/begginer.svg"
                     : video.level.name === "Beginner"
                     ? "/begginer.svg"
-                    : video.level.name === "Advanced"
-                    ? "/intermidate.svg"
                     : video.level.name === "Intermediate"
+                    ? "/intermidate.svg"
+                    : video.level.name === "Advanced"
                     ? "/advanced.svg"
                     : ""
                 }

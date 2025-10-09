@@ -7,14 +7,11 @@ import { BsPinAngleFill } from "react-icons/bs";
 import { TbMessageDots } from "react-icons/tb";
 import FilterCustom from "../../../components/FilterCustom/FilterCustom";
 import { CiTimer } from "react-icons/ci";
-import { request } from "../../../services/axios";
+import { fetcher } from "../../../services/axios";
 import { CircularProgress } from "@mui/material";
 import HomeCards from "./HomeCards";
 import { useSelector } from "react-redux";
 import { useTopicCounts } from "../../../utils/helper/hooks/useTopicCounts";
-
-const fetcher = (url) =>
-  request({ method: "get", url }).then((res) => res.data.payload);
 
 const HomePost = () => {
   const isLoggedIn = useSelector((state) => state.user.token);

@@ -51,7 +51,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     {
       id: 3,
       title: "Resources",
-      link: "#",
+      link: "/dashboard/resources",
       icon: "/book.png",
       activeicon: "/bookmark2.png",
       activeicon: <FaBookBookmark size={22} />,

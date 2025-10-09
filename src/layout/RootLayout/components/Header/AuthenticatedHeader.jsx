@@ -294,14 +294,14 @@ const AuthenticatedHeader = () => {
                         Go Premium
                       </button>
                     )}
-                    {user?.user?.profile_image !== "" ? (
+                    {user?.user?.profile_image ? (
                       <img
                         src={user?.user?.profile_image}
                         alt="Profile"
                         className="h-[40px] w-[40px] rounded-full object-cover"
                       />
                     ) : (
-                      <img src="/user.svg" className="h-[40px] w-[40px]" />
+                      <img src="/user.svg" alt="User" className="h-[40px] w-[40px] rounded-full" />
                     )}
                   </div>
                 </Box>
@@ -388,17 +388,17 @@ const AuthenticatedHeader = () => {
                       className="rounded-3xl gap-2 flex items-center justify-end bg-[#081F45] text-[#B99225] text-sm font-bold px-6 py-3"
                     >
                       <img src="/material-symbols_crown.png" alt="" />
-                      Premium
+                      Go Premium
                     </button>
                   )}
-                  {user?.user?.profile_image !== "" ? (
+                  {user?.user?.profile_image ? (
                     <img
                       src={user?.user?.profile_image}
                       alt="Profile"
                       className="h-[50px] w-[50px] rounded-full object-cover"
                     />
                   ) : (
-                    <img src="/user.svg" className="h-[50px] w-[50px]" />
+                    <img src="/user.svg" alt="User" className="h-[50px] w-[50px] rounded-full" />
                   )}
                   <IoIosArrowDown className="text-xl" />
                 </Box>

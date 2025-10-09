@@ -15,9 +15,8 @@ const Footer = ({ sendFiltersToAPI }) => {
     navigate("/dashboard/videos");
   };
 
-  const handleFilterClick = (levelId) => {
-    console.log("Navigating with filters:", levelId);
-    navigate(`/dashboard/videos?level=${levelId}`);
+  const handleFilterClick = () => {
+    navigate("/dashboard/videos");
   };
 
   return (

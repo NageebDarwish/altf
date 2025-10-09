@@ -6,10 +6,19 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { PiBellSimpleRingingBold } from "react-icons/pi";
 import { IoPlayCircleOutline, IoSearchOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Menu, MenuItem } from "@mui/material";
+import { IoSettingsOutline } from "react-icons/io5";
+import { HiOutlineMail } from "react-icons/hi";
+import { TbLogout2 } from "react-icons/tb";
 
 const LanguageHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const open = Boolean(anchorEl);
 
   const gopost = () => {
     navigate("createpost");
@@ -18,8 +27,26 @@ const LanguageHeader = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  
   const handlenavigate = () => {
     navigate("/dashboard/videos");
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    dispatch({ type: "LOGOUT" });
+    navigate("/sign-in");
+    handleClose();
   };
 
   return (
@@ -30,7 +57,7 @@ const LanguageHeader = () => {
             <img
               src="/logopic.png"
               alt="Logo"
-              className="h-12 w-28 object-contain rounded-md"
+              className="h-[64px] object-contain rounded-md"
             />
           </Link>
           <div className="hidden md:flex relative">
@@ -56,12 +83,22 @@ const LanguageHeader = () => {
           >
             <FaPlus /> Create Post
           </button>
-          <PiBellSimpleRingingBold className="text-2xl" />
-          <img
-            src="/doggirl.webp"
-            alt="User"
-            className="h-10 w-10 object-center rounded-full"
-          />
+          <PiBellSimpleRingingBold className="text-2xl cursor-pointer" />
+          {user?.user?.profile_image ? (
+            <img
+              src={user?.user?.profile_image}
+              alt="Profile"
+              className="h-10 w-10 rounded-full object-cover cursor-pointer"
+              onClick={handleClick}
+            />
+          ) : (
+            <img
+              src="/user.svg"
+              alt="User"
+              className="h-10 w-10 rounded-full cursor-pointer"
+              onClick={handleClick}
+            />
+          )}
         </div>
 
         <div className="lg:hidden flex items-center">
@@ -77,12 +114,28 @@ const LanguageHeader = () => {
         }`}
       >
         <div className="flex gap-4">
-          <img
-            src="/doggirl.webp"
-            alt="User"
-            className="h-14 w-14 object-center rounded-full"
-          />
-          <PiBellSimpleRingingBold className="text-4xl mt-2" />
+          {user?.user?.profile_image ? (
+            <img
+              src={user?.user?.profile_image}
+              alt="Profile"
+              className="h-14 w-14 rounded-full object-cover cursor-pointer"
+              onClick={() => {
+                navigate("/dashboard/profile");
+                setMenuOpen(false);
+              }}
+            />
+          ) : (
+            <img
+              src="/user.svg"
+              alt="User"
+              className="h-14 w-14 rounded-full cursor-pointer"
+              onClick={() => {
+                navigate("/dashboard/profile");
+                setMenuOpen(false);
+              }}
+            />
+          )}
+          <PiBellSimpleRingingBold className="text-4xl mt-2 cursor-pointer" />
         </div>
         <input
           type="search"
@@ -102,6 +155,29 @@ const LanguageHeader = () => {
           <FaPlus /> Create Post
         </button>
       </div>
+
+      {/* Dropdown Menu */}
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <MenuItem onClick={() => { navigate("/dashboard/profile"); handleClose(); }} className="flex gap-2">
+          <IoSettingsOutline size={20} />
+          Settings
+        </MenuItem>
+        <MenuItem
+          onClick={() => { navigate("/contact"); handleClose(); }}
+          className="gap-2 flex"
+        >
+          <HiOutlineMail size={20} /> Contact
+        </MenuItem>
+        <MenuItem onClick={handleLogout} className="flex gap-2">
+          <TbLogout2 size={20} /> Logout
+        </MenuItem>
+      </Menu>
     </nav>
   );
 };

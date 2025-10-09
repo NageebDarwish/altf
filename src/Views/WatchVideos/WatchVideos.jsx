@@ -33,8 +33,6 @@ const WatchVideos = () => {
   });
 
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const level = queryParams.get("level");
 
   // Use infinite scroll hook for videos
   const {
@@ -47,8 +45,8 @@ const WatchVideos = () => {
     refresh,
     lastElementRef,
   } = useInfiniteVideoScroll({
-    dependencies: [level],
-    enableAutoLoad: !level, // Don't auto-load if we have a level filter
+    dependencies: [],
+    enableAutoLoad: true,
     rootSelector: "#scroll-container",
   });
   const [userData, setUserData] = useState(null);
@@ -124,15 +122,6 @@ const WatchVideos = () => {
     }
   }, [infiniteVideoData]);
 
-  useEffect(() => {
-    if (level) {
-      setSelectedFilters((prev) => ({
-        ...prev,
-        levels: [level],
-      }));
-      // Level filtering is now handled by FilterVideo component
-    }
-  }, [level]);
 
   // If filters are externally cleared to empty, ensure base list present
   useEffect(() => {
@@ -255,7 +244,7 @@ const WatchVideos = () => {
 
   const getFilterNameById = (filterType, id) => {
     const filterOption = filterOptions[filterType].find(
-      (item) => item.id === id
+      (item) => item.id == id 
     );
     return filterOption ? filterOption.name : "Unknown";
   };
@@ -404,7 +393,7 @@ const WatchVideos = () => {
                   lg={4}
                   xl={gridSize}
                   key={`${videos.id}-${index}`}
-                  className="md:mb-0"
+                  className="md:mb-0 items-stretch"
                 >
                   <Link to={`/dashboard/watch/${videos.video}`} state={{ video: videos, type: "video", newvideo, allVideos: video }}>
                     <YoutubeCard

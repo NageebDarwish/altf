@@ -137,20 +137,28 @@ const WatchLibrary = () => {
           <>
             <div className="mt-10 md:mt-0 mb-20 md:mb-0 ">
               {/* <CustomVideoSlider title="Downloads" icon={<BsDownload />} data={list} /> */}
-              <CustomVideoSlider title="Downloads" icon={<BsDownload />} data={""} />
+              <CustomVideoSlider title="Downloads" icon={<BsDownload className="w-5 h-5" />} data={""} />
               <CustomVideoSlider
                 title="Favorite videos"
-                icon={<MdOutlineVideoLibrary />}
+                icon={<img src="/library/Clapperboard Play.svg" alt="Favorite videos" className="w-5 h-5" />}
                 data={[
                   ...(list?.videos || []),
                   ...(list?.series_videos || [])
                 ]}
               />
-              <SuperBeginnerSeriess title="Favorite series" icon={<MdSlowMotionVideo />} images={series} />
-              <CustomVideoSliderHistory title="Watch history" icon={<PiTimerThin />}  data={[
+              <SuperBeginnerSeriess 
+                title="Favorite series" 
+                icon={<img src="/library/Plaaylist Minimalistic.svg" alt="Favorite series" className="w-5 h-5" />} 
+                images={series} 
+              />
+              <CustomVideoSliderHistory 
+                title="Watch history" 
+                icon={<img src="/library/History.svg" alt="Watch history" className="w-5 h-5" />}  
+                data={[
                   ...(HistoryVideo?.videos || []),
                   ...(HistoryVideo?.series_videos || [])
-                ]} />
+                ]} 
+              />
             </div>
           </>
         )}

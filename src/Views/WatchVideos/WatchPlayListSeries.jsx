@@ -652,15 +652,13 @@ const WatchPlayListSeries = ({
                 <div
                   key={index}
                   ref={el => videoRefs.current[index] = el}
-                  className={`relative flex items-center border border-[#EEF2F6] rounded-[5px] mb-3 space-x-4 bg-white 
+                  onClick={() => {
+                    handleSelectVideo(item);
+                  }}
+                  className={`relative flex items-center border border-[#EEF2F6] rounded-[5px] mb-3 space-x-4 bg-white cursor-pointer hover:shadow-md transition-shadow
                   ${isSelected ? "border-orange-500 border-2 rounded-[5px]" : ""}`}
                 >
-                  <div
-                    onClick={() => {
-                      handleSelectVideo(item);
-                    }}
-                    className="relative"
-                  >
+                  <div className="relative">
                     {isPremium && (
                       <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center rounded-l-[5px] z-10">
                         {showPremiumMessage ? (
@@ -708,7 +706,10 @@ const WatchPlayListSeries = ({
                         </div>
                         {isPremium && (
                           <img
-                            onClick={() => navigate('/pricing-page')}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate('/pricing-page');
+                            }}
                             src="/Frame 1984077994.svg"
                             alt="Premium"
                             className="h-6 w-6 cursor-pointer"
@@ -724,6 +725,7 @@ const WatchPlayListSeries = ({
                               ) : (
                                 <IconButton
                                   disabled={downloadingVideos[item.id]}
+                                  onClick={(e) => e.stopPropagation()}
                                 >
                                   <MdOutlineFileDownload
                                     color={isAuthenticated ? "black" : "#ccc"}
@@ -742,7 +744,10 @@ const WatchPlayListSeries = ({
                           </IconButton>
                         )}
                         <HiDotsVertical
-                          onClick={(e) => handleClick(e, item)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleClick(e, item);
+                          }}
                           size={20}
                           className="text-black cursor-pointer hover:text-black transition-all"
                         />

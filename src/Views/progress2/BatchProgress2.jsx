@@ -1,31 +1,28 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
 const BatchProgress2 = ({userDetails}) => {
     const data = [
-        { img: "/Star Gazer-min.svg", title: 'Star Gazer', description: 'Watched 1 series' },
-        { img: "/Lunar cycle.svg", title: 'Lunar voyager', description: 'Watched 10 series' },
-        { img: "/Solar Explorer-min.svg", title: 'Solar explorer', description: 'Watched 50 series' },
-        { img: "/Celestial Navegator-min.svg", title: 'Celestial navigator', description: 'Watched 100 series' },
-        { img: '/First Light.svg', title: 'First light', description: '1 hour watched' },
-        { img: "/Steady Glow-min.svg", title: 'Steady glow', description: '20 hours watched' },
-        { img: "/Rising Dawon-min.svg", title: 'Rising dawn', description: '100 hours watched' },
-        { img: "/Radiant horizon.svg", title: 'Radiant horizon', description: '500 hours watched' },
-        { img: "/Eternal sun.svg", title: 'Eternal sun', description: '1,000 hours watched' },
-        { img: "/New Moon.svg", title: 'New moon', description: '3-day streak' },
-        { img: "/Weeks Orbit-min.svg", title: "Week's orbit", description: '7-day streak' },
-        { img: "/Lunar cycle.svg", title: 'Lunar cycle', description: '30-day streak' },
-        { img: "/centennial orbit (1).svg", title: 'Centennial orbit', description: '100-day streak' },
-        { img: "/Solar Year-min.svg", title: 'Solar year', description: 'One year streak' },
-        { img: "/The First Spark-min.svg", title: 'The First spark', description: 'First comment' },
-        { img: "/Celestial Guid-min (1).svg", title: 'Celestial guide', description: 'Popular discussion thread' },
-        { img: "/Constellation  Connector-min.svg", title: 'Constellation connector', description: 'Receiving 100 likes' },
-        { img: "/Desert Star-min.svg", title: 'Desert star', description: '50 posts' },
-        { img: "/First Ray.svg", title: 'First ray', description: 'Watched a video within 24 hours of release' },
-        { img: "/Eclipsa  Viewer.svg", title: 'Eclipse viewer', description: 'Watched all Super Beginner videos' },
-        { img: "/cultural explorer.svg", title: 'Cultural explorer', description: 'Watched 50 "Culture" videos' },
-        { img: "/cultural Ambassador.svg", title: 'Cultural ambassador', description: 'Watched 100 "Culture" videos' },
-        { img: "/Eternal light.svg", title: 'Eternal light', description: 'Premium Member' },
+        { img: "/badges/Asset 2.webp", title: 'Star Gazer', description: 'Watched 1 series' },
+        { img: "/badges/Asset 3.webp", title: 'Lunar voyager', description: 'Watched 10 series' },
+        { img: "/badges/Asset 4.webp", title: 'Solar explorer', description: 'Watched 50 series' },
+        { img: "/badges/Asset 5.webp", title: 'Celestial navigator', description: 'Watched 100 series' },
+        { img: '/badges/Asset 6.webp', title: 'First light', description: '1 hour watched' },
+        { img: "/badges/Asset 7.webp", title: 'Steady glow', description: '20 hours watched' },
+        { img: "/badges/Asset 8.webp", title: 'Rising dawn', description: '100 hours watched' },
+        { img: "/badges/Asset 9.webp", title: 'Radiant horizon', description: '500 hours watched' },
+        { img: "/badges/Asset 10.webp", title: 'Eternal sun', description: '1,000 hours watched' },
+        { img: "/badges/Asset 11.webp", title: 'New moon', description: '3-day streak' },
+        { img: "/badges/Asset 12.webp", title: "Week's orbit", description: '7-day streak' },
+        { img: "/badges/Asset 14.webp", title: 'Lunar cycle', description: '30-day streak' },
+        { img: "/badges/Asset 15.webp", title: 'Centennial orbit', description: '100-day streak' },
+        { img: "/badges/Asset 16.webp", title: 'Solar year', description: 'One year streak' },
+        { img: "/badges/Asset 17.webp", title: 'The First spark', description: 'First comment' },
+        { img: "/badges/Asset 18.webp", title: 'Celestial guide', description: 'Popular discussion thread' },
+        { img: "/badges/Asset 19.webp", title: 'Constellation connector', description: 'Receiving 100 likes' },
+        { img: "/badges/Asset 20.webp", title: 'Desert star', description: '50 posts' },
+        { img: "/badges/Asset 21 (1).webp", title: 'First ray', description: 'Watched a video within 24 hours of release' },
+        { img: "/badges/Asset 22.webp", title: 'Eclipse viewer', description: 'Watched all Super Beginner videos' },
+        { img: "/badges/Asset 23.webp", title: 'Cultural explorer', description: 'Watched 50 "Culture" videos' },
+        { img: "/badges/Asset 24.webp", title: 'Cultural ambassador', description: 'Watched 100 "Culture" videos' },
+        { img: "/badges/Asset 25.webp", title: 'Eternal light', description: 'Premium Member' },
     ];
 
     const badges = userDetails.badges;
@@ -60,14 +57,14 @@ const BatchProgress2 = ({userDetails}) => {
                         >
                             <div className='bg-[#D9D9D9] h-[84px] w-[84px] rounded-full flex items-center justify-center overflow-hidden'>
                                 {/* Uncomment when you have images */}
-                                {/* <img 
+                                <img 
                                     src={val.img} 
                                     alt={val.title} 
                                     className="object-contain w-full h-full" 
                                     loading="lazy"
                                     width="84"
                                     height="84"
-                                /> */}
+                                />
                             </div>
                             <p className='font-bold text-heading font-pally text-center text-[26px] mt-3'>{val.title}</p>
                             <p className='font-thin text-heading font-HelveticaNeue text-[14px] text-center'>

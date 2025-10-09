@@ -32,8 +32,8 @@ const Vs = () => {
         </h1>
       </Container>
       <div
-        className="relative w-full py-10 text-white bg-cover bg-center"
-        style={{ backgroundImage: "url('/vs.png')" }}
+        className="relative w-full py-10 text-white"
+        style={{ backgroundColor: "#0C3373" }}
       >
         <div className="max-w-6xl mx-auto px-4">
           {content.map((item, index) => (
