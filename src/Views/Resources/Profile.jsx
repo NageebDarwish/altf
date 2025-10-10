@@ -179,7 +179,7 @@ const Profile = () => {
       formData.append("profile_image", imageFile);
 
       const response = await axios.post(
-        "https://admin.arabicallthetime.com/api/edit/profile",
+        "http://admin.arabicallthetime.com/api/edit/profile",
         formData,
         {
           headers: {

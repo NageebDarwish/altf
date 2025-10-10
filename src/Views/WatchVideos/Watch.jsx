@@ -2,9 +2,10 @@ import { Box } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import WatchPlayListSeries from "./WatchPlayListSeries";
 import WatchVideoDetails from "./WatchVideoDetails";
+import VideoSeriesInfo from "./VideoSeriesInfo";
 import axios from "axios";
 import CommentSection from "./CommentSection";
 import { createApiUrl, API_ENDPOINTS } from "../../config/api";
@@ -17,8 +18,6 @@ const Watch = () => {
   const userId = usersid?.id;
   const { id } = useParams();
   const user = useSelector((state) => state.user);
-  const vid = useSelector((state) => state.video.video_data);
-  const vid_timeline = useSelector((state) => state.video.video_timeline);
 
   const initialVideo = state?.video;
   let initialUserTimeline;
@@ -37,10 +36,6 @@ const Watch = () => {
   const initialSavedTimeSeconds =
     parseFloat(initialUserTimeline?.progress_time) || 0;
   const initialDuration = parseFloat(initialVideo?.duration_seconds) || 1;
-  const initialPlayed =
-    initialSavedTimeSeconds > 0
-      ? Math.min(initialSavedTimeSeconds / initialDuration, 0.99)
-      : 0;
 
 
   const [hasSeeked, setHasSeeked] = useState(false);
@@ -85,13 +80,6 @@ const Watch = () => {
     progress_time: initialSavedTimeSeconds,
   });
 
-  const [video_data, setVideoData] = useState({
-    watched_time: 0,
-    video_id: currentVideoId,
-    is_completed: 0,
-  });
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     timerRef.current = timer;
@@ -140,7 +128,6 @@ const Watch = () => {
     }
 
     const formData = new FormData();
-    const currentVideo = selectedVideo || state?.video;
     const currentVideoIdForApi = selectedVideo
       ? selectedVideo.id
       : state?.video?.id || currentVideoId;
@@ -166,7 +153,7 @@ const Watch = () => {
     formData.append("progress_time", progressToSend.toString());
 
     try {
-      const res = await axios.post(
+      await axios.post(
         createApiUrl(API_ENDPOINTS.timeline.video),
         formData,
         {
@@ -186,7 +173,7 @@ const Watch = () => {
     const minutes = Math.floor(timerRef.current);
 
     try {
-      const result = await axios.post(
+      await axios.post(
         createApiUrl(`update/goal?date=${date}&completed_minutes=${minutes}`),
         {},
         {
@@ -230,7 +217,7 @@ const Watch = () => {
   }, []);
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = () => {
       updateTimeLine();
     };
 
@@ -281,7 +268,6 @@ const Watch = () => {
     }
 
     lastProgressTimeRef.current = currentTimeSeconds;
-    const videoIdForUpdate = selectedVideo ? selectedVideo.id : currentVideoId;
 
     currentVideoDataRef.current = {
       video_id: selectedVideo ? selectedVideo.id : currentVideoId,
@@ -290,12 +276,6 @@ const Watch = () => {
       progress_time: currentTimeSeconds,
     };
 
-    setVideoData({
-      watched_time: sessionWatchedTimeRef.current,
-      video_id: currentVideoId,
-      is_completed: isCompleted,
-      progress_time: currentTimeSeconds,
-    });
 
     dispatch({
       type: "ADD_VIDEO_DATA",
@@ -323,7 +303,6 @@ const Watch = () => {
   const handleReady = () => {
     if (!playerRef.current) return;
 
-    const currentVideo = selectedVideo || state?.video;
     let currentVideoTimeline = null;
 
     if (state.type === "video") {
@@ -414,11 +393,6 @@ const Watch = () => {
       progress_time: savedTimeSeconds,
     };
 
-    setVideoData({
-      watched_time: 0,
-      video_id: id,
-      is_completed: 0,
-    });
 
     previousPlayedRef.current = 0;
 
@@ -467,7 +441,7 @@ const Watch = () => {
 
   // Fix: Improved handleSelectVideo function
   const handleSelectVideo = useCallback(
-    (video, timeline) => {
+    (video) => {
       console.log("Selecting video:", video);
 
       // Only update if video is actually changing
@@ -510,11 +484,6 @@ const Watch = () => {
           progress_time: savedProgressTimeSeconds,
         };
 
-        setVideoData({
-          watched_time: 0,
-          video_id: video.id,
-          is_completed: userTimeline?.is_completed || 0,
-        });
 
         const initialProgress =
           savedProgressTimeSeconds > 0
@@ -677,11 +646,21 @@ const Watch = () => {
               state={selectedVideo}
               contentType={location.state.type}
             />
+            <VideoSeriesInfo
+              series={state?.allSeries}
+              video={selectedVideo}
+              contentType={location.state.type}
+            />
           </>
         ) : (
           <>
             <WatchVideoDetails
               state={state?.video}
+              contentType={location.state.type}
+            />
+            <VideoSeriesInfo
+              series={state?.allSeries}
+              video={state?.video}
               contentType={location.state.type}
             />
           </>
@@ -716,9 +695,9 @@ const Watch = () => {
       <WatchPlayListSeries
         state={videoList}
         onSelectVideo={useCallback(
-          (video, timeline) => {
+          (video) => {
             updateTimeLine(); // Call this first to save previous video progress
-            handleSelectVideo(video, timeline);
+            handleSelectVideo(video);
           },
           [updateTimeLine, handleSelectVideo]
         )}
