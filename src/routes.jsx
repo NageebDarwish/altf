@@ -1,4 +1,4 @@
-import {  useLocation, useRoutes } from "react-router-dom";
+import { useLocation, useRoutes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Landing from "./Views/Landing/Landing";
@@ -70,7 +70,7 @@ export default function Router() {
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
   const location = useLocation();
   const isAuthenticated = useSelector((state) => state?.user?.isAuthenticated);
-  
+
   useEffect(() => {
     const isWelcomePopupShown = localStorage.getItem("welcomePopupShown");
 
@@ -86,10 +86,31 @@ export default function Router() {
   // Stripe fully removed from frontend. Checkout is now backend-only redirect.
   let element = useRoutes([
     { path: "/subscriptions", element: <PremiumMembership /> },
-    { path: "/sign-in", element: <PublicOnlyRoutes isLogged={isAuthenticated}><SignIn /></PublicOnlyRoutes> },
-    { path: "/sign-up", element: <PublicOnlyRoutes isLogged={isAuthenticated}><Signup /></PublicOnlyRoutes> },
+    {
+      path: "/sign-in",
+      element: (
+        <PublicOnlyRoutes isLogged={isAuthenticated}>
+          <SignIn />
+        </PublicOnlyRoutes>
+      ),
+    },
+    {
+      path: "/sign-up",
+      element: (
+        <PublicOnlyRoutes isLogged={isAuthenticated}>
+          <Signup />
+        </PublicOnlyRoutes>
+      ),
+    },
     { path: "/price", element: <Price /> },
-    { path: "/otp-authentication", element: <PublicOnlyRoutes isLogged={isAuthenticated}><OtpAuthentications /></PublicOnlyRoutes> },
+    {
+      path: "/otp-authentication",
+      element: (
+        <PublicOnlyRoutes isLogged={isAuthenticated}>
+          <OtpAuthentications />
+        </PublicOnlyRoutes>
+      ),
+    },
 
     {
       path: "/newdashboard",
@@ -160,7 +181,14 @@ export default function Router() {
 
         // { path: "free-membership-plan", element: <StartLarning2 /> },
 
-        { path: "primium-membership-plan", element: <ProtectedRoutes isLogged={isAuthenticated}><StartLarning2 /></ProtectedRoutes> },
+        {
+          path: "primium-membership-plan",
+          element: (
+            <ProtectedRoutes isLogged={isAuthenticated}>
+              <StartLarning2 />
+            </ProtectedRoutes>
+          ),
+        },
       ],
     },
 
@@ -173,7 +201,14 @@ export default function Router() {
         { path: "series", element: <WatchSeries /> },
         { path: "resources", element: <AllResources /> },
         { path: "blog", element: <BlogsLanding /> },
-        { path: "profile", element: <ProtectedRoutes isLogged={isAuthenticated}><Profile /></ProtectedRoutes> },
+        {
+          path: "profile",
+          element: (
+            <ProtectedRoutes isLogged={isAuthenticated}>
+              <Profile />
+            </ProtectedRoutes>
+          ),
+        },
         { path: "no-vedio", element: <NoVideo /> },
         { path: "vedio-list", element: <VideoList /> },
         { path: "series-list", element: <MySeriesList /> },
@@ -194,7 +229,7 @@ export default function Router() {
         { path: "resources/vedio-plateform", element: <VedioPlateform /> },
         { path: "resources/subscriptions", element: <PreSubscriptions /> },
         { path: "library", element: <WatchLibrary /> },
-        { path: "library", element: <Library /> },
+        // { path: "library", element: <Library /> },
         { path: "progress", element: <Progress2 /> },
         { path: "bignners", element: <Bignner /> },
         { path: "settings", element: <Settings /> },

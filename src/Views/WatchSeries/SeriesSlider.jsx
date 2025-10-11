@@ -9,17 +9,15 @@ import { Box, Typography } from "@mui/material";
 import { FaLock } from "react-icons/fa6";
 
 const SeriesSlider = ({ series, title }) => {
-
-  console.log(series, 'kokokokkokk')
-  const navigate = useNavigate()
+  console.log(series, "kokokokkokk");
+  const navigate = useNavigate();
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false);
   const [selectedSeries, setSelectedSeries] = useState(null);
-  console.log(selectedSeries,'selectedSeries')
-    const [showPremiumMessage, setShowPremiumMessage] = useState(false);
-
+  console.log(selectedSeries, "selectedSeries");
+  const [showPremiumMessage, setShowPremiumMessage] = useState(false);
 
   const handleOpen = (seriesItem) => {
-   if (seriesItem.plan === 'premium') {
+    if (seriesItem.plan === "premium") {
       return;
     }
     setSelectedSeries(seriesItem);
@@ -31,34 +29,34 @@ const SeriesSlider = ({ series, title }) => {
     setSelectedSeries(null);
   };
 
-    const handlePremiumClick = () => {
+  const handlePremiumClick = () => {
     setShowPremiumMessage(true);
     setTimeout(() => setShowPremiumMessage(false), 2000); // Hide message after 2 seconds
   };
 
-  console.log(series, 'videosseriesss   slider');
+  console.log(series, "videosseriesss   slider");
 
   const slidesToShow = Math.min(5, series.length);
 
   const PrevArrow = ({ onClick }) => (
     <>
       <div
-      className="custom-arrow -left-10 top-1/3 bg-btnbackground text-white w-10 h-10 hidden md:flex items-center justify-center rounded-full absolute z-10 cursor-pointer"
-      onClick={onClick}
+        className="custom-arrow -left-10 top-1/3 bg-btnbackground text-white w-10 h-10 hidden md:flex items-center justify-center rounded-full absolute z-10 cursor-pointer"
+        onClick={onClick}
       >
-      <FaAngleLeft className="text-2xl" />
-    </div>
+        <FaAngleLeft className="text-2xl" />
+      </div>
     </>
   );
 
   const NextArrow = ({ onClick }) => (
     <>
       <div
-      className="custom-arrow -right-10 top-1/3 bg-btnbackground text-white w-10 h-10 hidden md:flex items-center justify-center rounded-full absolute z-10 cursor-pointer"
-      onClick={onClick}
+        className="custom-arrow -right-10 top-1/3 bg-btnbackground text-white w-10 h-10 hidden md:flex items-center justify-center rounded-full absolute z-10 cursor-pointer"
+        onClick={onClick}
       >
-      <FaAngleRight className="text-2xl" />
-    </div>
+        <FaAngleRight className="text-2xl" />
+      </div>
     </>
   );
 
@@ -66,9 +64,9 @@ const SeriesSlider = ({ series, title }) => {
     dots: false,
     infinite: series.length > slidesToShow,
     speed: 500,
-  slidesToShow: Math.min(4, series.length),
+    slidesToShow: Math.min(4, series.length),
     slidesToScroll: 1,
-      initialSlide: 0, 
+    initialSlide: 0,
     autoplay: series.length > slidesToShow,
     autoplaySpeed: 3000,
     nextArrow: <NextArrow />,
@@ -93,12 +91,15 @@ const SeriesSlider = ({ series, title }) => {
   //   navigate(`/dashboard/watch/${videoId}`, { state: { video: item, type: 'series', allVideos: series[0].series} });
   // };
 
-
   return (
-    <div className="w-full px-2  py-5">
+    <div className="w-full p-2 md:p-5">
       <div className="flex justify-between items-center">
-        <h2 className="text-[20px] md:text-[32px] font-bold font-pally text-heading">{title}</h2>
-        <a href="#" className="text-orange-500 font-semibold">View All</a>
+        <h2 className="text-[20px] md:text-[32px] font-bold font-pally text-heading">
+          {title}
+        </h2>
+        <a href="#" className="text-orange-500 font-semibold">
+          View All
+        </a>
       </div>
 
       <Slider {...settings} className="mt-5">
@@ -108,8 +109,11 @@ const SeriesSlider = ({ series, title }) => {
               {thumbnail.thumbnail ? (
                 <img
                   // onClick={() => handleplay(thumbnail.videos[0].video, thumbnail)}
-                  onClick={() => thumbnail.plan === 'premium' ? handlePremiumClick() : handleOpen(thumbnail)}
-
+                  onClick={() =>
+                    thumbnail.plan === "premium"
+                      ? handlePremiumClick()
+                      : handleOpen(thumbnail)
+                  }
                   src={thumbnail.vertical_thumbnail}
                   alt={thumbnail.title}
                   className="w-full h-44 md:h-64 object-cover"
@@ -119,7 +123,7 @@ const SeriesSlider = ({ series, title }) => {
                   No Image
                 </div>
               )}
-               {thumbnail.plan === 'premium' && (
+              {thumbnail.plan === "premium" && (
                 <Box
                   sx={{
                     position: "absolute",

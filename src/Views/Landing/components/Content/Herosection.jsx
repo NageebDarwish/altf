@@ -40,7 +40,7 @@ const Herosection = ({ scrollToInput }) => {
           <img
             src="/sheela.webp"
             alt="Happy Learning"
-            className="w-auto h-[60vh] lg:h-[70vh] xl:h-[80vh] rounded-lg object-contain border-4 border-white"
+            className="w-auto h-[40vh] lg:h-[50vh] xl:h-[60vh] rounded-lg object-contain border-4 border-white"
           />
         </div>
       </div>

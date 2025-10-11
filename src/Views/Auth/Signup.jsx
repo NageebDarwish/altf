@@ -57,8 +57,8 @@ const Signup = () => {
         registerUser({ fullname, email, password })
       );
       toast.success(response.data.message || "Registration successful!");
-      navigate("/otp-authentication", { 
-        state: { email: email } 
+      navigate("/otp-authentication", {
+        state: { email: email },
       });
     } catch (error) {
       // Extract error message properly - don't set error object directly
@@ -195,7 +195,10 @@ const Signup = () => {
               >
                 <span className="hover:text-[#1F509E]">
                   I agree to{" "}
-                  <Link className="font-semibold" to={"/privacy-policy"}>
+                  <Link
+                    className="font-semibold underline"
+                    to={"/privacy-policy"}
+                  >
                     Privacy Policy
                   </Link>
                 </span>

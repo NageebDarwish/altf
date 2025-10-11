@@ -88,7 +88,7 @@ const Footer = ({ sendFiltersToAPI }) => {
                     : "hover:text-btnbackground"
                 }`}
               >
-                Premium
+                Pricing
               </Link>
               <Link
                 to={"/story"}

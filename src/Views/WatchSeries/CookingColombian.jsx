@@ -9,18 +9,23 @@ import { MdOutlineVideoLibrary } from "react-icons/md";
 import { PiTimerBold } from "react-icons/pi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaChevronLeft,
+  FaChevronRight,
+} from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CookingColombian = ({ series }) => {
   const [isOpenVideoModal, setIsOpenVideoModal] = useState(false);
   const [selectedSeries, setSelectedSeries] = useState(null);
   const [showPremiumMessage, setShowPremiumMessage] = useState(false);
-  const location =useLocation()
+  const location = useLocation();
   const images = ["/teamm3.webp", "/teamm1.webp", "/team2.webp", "/pizza.webp"];
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [sliderHeight, setSliderHeight] = useState("h-[470px]");
-console.log(series,'seriesseries')
+  console.log(series, "seriesseries");
   const handleOpen = (seriesItem) => {
     setSelectedSeries(seriesItem);
     setIsOpenVideoModal(true);
@@ -31,8 +36,6 @@ console.log(series,'seriesseries')
     setSelectedSeries(null);
   };
 
-
-  
   useEffect(() => {
     if (location.pathname === "/dashboard/profile") {
       setSliderHeight("h-[270px]");
@@ -71,28 +74,32 @@ console.log(series,'seriesseries')
     fade: true,
   };
 
-   const isVideoPlayable = (video) => {
+  const isVideoPlayable = (video) => {
     return video.status === "public" && video.plan !== "premium";
   };
 
   const handlenavigateplay = (videoId, item, selectedVideo) => {
-    const playableVideos = item.videos.filter(video => isVideoPlayable(video));
-    navigate(`/dashboard/watch/${videoId}`, { 
-      state: { 
+    const playableVideos = item.videos.filter((video) =>
+      isVideoPlayable(video)
+    );
+    navigate(`/dashboard/watch/${videoId}`, {
+      state: {
         video: selectedVideo,
-        videodata: item, 
-        type: 'series', 
-        allVideos: playableVideos 
-      } 
+        videodata: item,
+        type: "series",
+        allVideos: playableVideos,
+      },
     });
   };
 
-
- const calculateTotalDuration = (videos) => {
+  const calculateTotalDuration = (videos) => {
     // Filter only playable videos for duration calculation
-    const playableVideos = videos.filter(video => isVideoPlayable(video));
+    const playableVideos = videos.filter((video) => isVideoPlayable(video));
     // const totalSeconds = playableVideos.reduce((sum, video) => sum + (video.duration_seconds || 0), 0);
-const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.duration_seconds || 0), 0);
+    const totalSeconds = playableVideos.reduce(
+      (sum, video) => sum + Number(video.duration_seconds || 0),
+      0
+    );
 
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -103,47 +110,81 @@ const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.du
     return `${minutes}m`;
   };
 
-
-
   return (
     <div className="relative">
       <Slider {...settings}>
         {series.map((item, index) => {
           // Find first playable video
-          const firstPlayableVideo = item.videos?.find(video => isVideoPlayable(video));
+          const firstPlayableVideo = item.videos?.find((video) =>
+            isVideoPlayable(video)
+          );
           // Count only playable videos
-          const playableVideos = item.videos?.filter(video => isVideoPlayable(video));
+          const playableVideos = item.videos?.filter((video) =>
+            isVideoPlayable(video)
+          );
           return (
             <div key={index}>
               <div
                 style={{
                   backgroundImage: `url(${item.thumbnail || "/teamm3.png"})`,
                 }}
-                className={`${sliderHeight} relative cover ${location.pathname == "/dashboard/profile" ? "h-[20vh] md:h-[40vh]" : "h-[65vh] md:h-[70vh]"}  p-2 bg-cover bg-center md:rounded-[10px]`}
+                className={`${sliderHeight} relative cover ${
+                  location.pathname == "/dashboard/profile"
+                    ? "h-[20vh] md:h-[40vh]"
+                    : "h-[50vh] md:h-[55vh]"
+                }  p-2 bg-cover bg-center md:rounded-[10px]`}
               >
                 <div className="absolute inset-0 bg-black/30 md:rounded-xl"></div>
 
-                <div className={`h-full flex flex-col justify-end  text-white relative z-10 pl-4 md:pl-9 pb-6 ${location.pathname == "/dashboard/profile" ? "gap-1 md:gap-2" : "gap-4 md:gap-6"}`}>
+                <div
+                  className={`h-full flex flex-col justify-end  text-white relative z-10 pl-4 md:pl-9 pb-6 ${
+                    location.pathname == "/dashboard/profile"
+                      ? "gap-1 md:gap-2"
+                      : "gap-4 md:gap-6"
+                  }`}
+                >
                   <h1 className="font-bold text-[20px] md:text-[34px] font-poppins">
                     {item.title}
                   </h1>
 
-                  <Box display="flex" gap={1} sx={{ flexDirection: "row", alignItems: { xs: "start", md: "center" } }}>
-                    
+                  <Box
+                    display="flex"
+                    gap={1}
+                    sx={{
+                      flexDirection: "row",
+                      alignItems: { xs: "start", md: "center" },
+                    }}
+                  >
                     <Button
-                   startIcon={<img src={item.level.name === "Super Beginner" ? "/begginer.svg" : item.level.name === "Beginner" ? "/begginer.svg" : item.level.name === "Advanced" ? "/advanced.svg" : item.level.name === "Intermediate" ? "/intermidate.svg" : ""} alt="Level" className="h-4 w-4" />}
+                      startIcon={
+                        <img
+                          src={
+                            item.level.name === "Super Beginner"
+                              ? "/begginer.svg"
+                              : item.level.name === "Beginner"
+                              ? "/begginer.svg"
+                              : item.level.name === "Advanced"
+                              ? "/advanced.svg"
+                              : item.level.name === "Intermediate"
+                              ? "/intermidate.svg"
+                              : ""
+                          }
+                          alt="Level"
+                          className="h-4 w-4"
+                        />
+                      }
                       variant="contained"
                       sx={{
                         backgroundColor:
                           item.level.name === "Super Beginner"
                             ? "#08BBE8"
                             : item.level.name === "Beginner"
-                              ? "#1CC932"
-                              : item.level.name === "Advanced"
-                                ? "#0C3373"
-                                : item.level.name === "Intermediate"
-                                  ? "#F2CC08"
-                                  : "#ccc",
+                            ? "#1CC932"
+                            : item.level.name === "Advanced"
+                            ? "#0C3373"
+                            : item.level.name === "Intermediate"
+                            ? "#F2CC08"
+                            : "#ccc",
                         color: "#fff",
                         fontWeight: "bold",
                         fontSize: "12px",
@@ -164,9 +205,9 @@ const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.du
                         gap: "px",
                       }}
                     >
-                      <MdOutlineVideoLibrary className="h-4 w-4 md:w-6 md:h-6" /> 
+                      <MdOutlineVideoLibrary className="h-4 w-4 md:w-6 md:h-6" />
                       {playableVideos?.length || 0} Episode(s) •{" "}
-                      <PiTimerBold className="h-4 w-4 md:w-6 md:h-6" /> 
+                      <PiTimerBold className="h-4 w-4 md:w-6 md:h-6" />
                       {calculateTotalDuration(item.videos)}
                     </Typography>
                   </Box>
@@ -176,15 +217,27 @@ const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.du
                   <div className="flex items-center gap-4">
                     {firstPlayableVideo ? (
                       <button
-                        onClick={() => handlenavigateplay(firstPlayableVideo.video, item, firstPlayableVideo)}
-                        className={`flex items-center  gap-2  text-white bg-dashboardPrimary ${location.pathname == "/dashboard/profile" ? "px-3 py-1.5 rounded-3xl" : "px-6 py-3 rounded-lg"}`}
+                        onClick={() =>
+                          handlenavigateplay(
+                            firstPlayableVideo.video,
+                            item,
+                            firstPlayableVideo
+                          )
+                        }
+                        className={`flex items-center  gap-2  text-white bg-dashboardPrimary ${
+                          location.pathname == "/dashboard/profile"
+                            ? "px-3 py-1.5 rounded-3xl"
+                            : "px-6 py-3 rounded-lg"
+                        }`}
                       >
                         <PlayCircleIcon />
                         <span className="font-semibold text-md">Play Now</span>
                       </button>
                     ) : (
                       <button
-                        className={`flex items-center gap-2  text-gray-400 bg-gray-200 cursor-not-allowed ${location.pathname == "/dashboard/profile" ? "" : ""}`}
+                        className={`flex items-center gap-2  text-gray-400 bg-gray-200 cursor-not-allowed ${
+                          location.pathname == "/dashboard/profile" ? "" : ""
+                        }`}
                         disabled
                       >
                         <PlayCircleIcon />
@@ -193,9 +246,13 @@ const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.du
                         </span>
                       </button>
                     )}
-                    
+
                     <button
-                      className={`font-semibold text-md bg-[#fff5e7] text-dashboardPrimary ${location.pathname == "/dashboard/profile" ? "px-3 py-1.5 rounded-3xl" : "px-6 py-3 rounded-lg"}`}
+                      className={`font-semibold text-md bg-[#fff5e7] text-dashboardPrimary ${
+                        location.pathname == "/dashboard/profile"
+                          ? "px-3 py-1.5 rounded-3xl"
+                          : "px-6 py-3 rounded-lg"
+                      }`}
                       onClick={() => handleOpen(item)}
                     >
                       More Info
@@ -208,9 +265,13 @@ const totalSeconds = playableVideos.reduce((sum, video) => sum + Number(video.du
         })}
       </Slider>
 
-
-      <VideoSeriesModal open={isOpenVideoModal} onClose={handleClose} series={[selectedSeries]}  showPremiumMessage={showPremiumMessage}
-        setShowPremiumMessage={setShowPremiumMessage} />
+      <VideoSeriesModal
+        open={isOpenVideoModal}
+        onClose={handleClose}
+        series={[selectedSeries]}
+        showPremiumMessage={showPremiumMessage}
+        setShowPremiumMessage={setShowPremiumMessage}
+      />
     </div>
   );
 };

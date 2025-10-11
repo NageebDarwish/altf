@@ -14,7 +14,7 @@ const SuperBeginnerSeries = () => {
   const [error, setError] = useState(null);
   const [visibleCards, setVisibleCards] = useState(5);
 
-  const token = useSelector(state => state.user.token);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     const updateVisibleCards = () => {
@@ -28,31 +28,34 @@ const SuperBeginnerSeries = () => {
     };
 
     updateVisibleCards();
-    window.addEventListener('resize', updateVisibleCards);
-    return () => window.removeEventListener('resize', updateVisibleCards);
+    window.addEventListener("resize", updateVisibleCards);
+    return () => window.removeEventListener("resize", updateVisibleCards);
   }, []);
 
   const fetchDetailedSeries = async (seriesList) => {
     try {
       const detailedPromises = seriesList.map((item) =>
         axios
-          .get(`https://admin.arabicallthetime.com/api/series/show/${item.series_id}`, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
+          .get(
+            `https://admin.arabicallthetime.com/api/series/show/${item.series_id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
             }
-          })
-          .then(response => response.data.payload)
+          )
+          .then((response) => response.data.payload)
       );
 
       const results = await Promise.allSettled(detailedPromises);
       const fulfilledData = results
-        .filter(result => result.status === "fulfilled")
-        .map(result => result.value);
+        .filter((result) => result.status === "fulfilled")
+        .map((result) => result.value);
 
       const rejectedErrors = results
-        .filter(result => result.status === "rejected")
-        .map(result => result.reason);
+        .filter((result) => result.status === "rejected")
+        .map((result) => result.reason);
 
       if (rejectedErrors.length > 0) {
         console.warn("Some series detail fetches failed:", rejectedErrors);
@@ -77,9 +80,9 @@ const SuperBeginnerSeries = () => {
           "https://admin.arabicallthetime.com/api/user/series/timeline/videos",
           {
             headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
           }
         );
 
@@ -110,18 +113,21 @@ const SuperBeginnerSeries = () => {
   };
 
   if (loading) {
-    return <Box sx={{ padding: "16px" }}><CircularProgress /></Box>;
+    return (
+      <Box sx={{ padding: "16px" }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
-    <Box sx={{ position: "relative", padding: "16px" }}>
+    <Box sx={{ position: "relative", padding: "16px 16px 0px 16px" }}>
       {/* Header */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          marginBottom: "16px",
         }}
       >
         <Typography className="text-[20px] sm:text-[25px] md:text-[32px] font-bold text-[#0C3373] font-pally">
@@ -173,17 +179,21 @@ const SuperBeginnerSeries = () => {
           {series
             .filter((item) => item.series_video?.status !== "private")
             .map((item, index) => {
-              const detailedItem = detailedSeries.find(ds => String(ds.id) === item.series_id) || {};
+              const detailedItem =
+                detailedSeries.find((ds) => String(ds.id) === item.series_id) ||
+                {};
 
               return (
                 <Box
                   key={index}
                   sx={{
-                    flex: `0 0 calc(${100 / visibleCards}% - ${(20 * (visibleCards - 1)) / visibleCards}px)`,
+                    flex: `0 0 calc(${100 / visibleCards}% - ${
+                      (20 * (visibleCards - 1)) / visibleCards
+                    }px)`,
                     transition: "transform 0.2s",
                     "&:hover": {
-                      transform: "scale(1.02)"
-                    }
+                      transform: "scale(1.02)",
+                    },
                   }}
                 >
                   <SeriesModalCard

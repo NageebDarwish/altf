@@ -2,11 +2,11 @@
 // import { useEffect, useState } from "react";
 // import { request } from "../../services/axios";
 // import ToastComp from "../../components/toast/ToastComp";
-// import { Box, CircularProgress } from "@mui/material"; 
+// import { Box, CircularProgress } from "@mui/material";
 // import SuperBeginnerSeries from "./SuperBeginnerSeries";
 // const TrendingSeries = () => {
 //   const [series, setSeries] = useState([]);
-//   const [loading, setLoading] = useState(true); 
+//   const [loading, setLoading] = useState(true);
 //   console.log(series,"seriresData")
 //   useEffect(() => {
 //     const fetchSeries = async () => {
@@ -61,8 +61,6 @@
 
 // export default TrendingSeries;
 
-
-
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Box, CircularProgress } from "@mui/material";
@@ -70,9 +68,9 @@ import CookingColombian from "./CookingColombian";
 import SuperBeginnerSeries from "./SuperBeginnerSeries";
 import { request } from "../../services/axios";
 import ToastComp from "../../components/toast/ToastComp";
-import SuperBeginnerSeriess from './SuperBeginnerSeriess';
+import SuperBeginnerSeriess from "./SuperBeginnerSeriess";
 import { setSeriesList } from "../../store/SeriesSlice/seriesSlice";
-import SeriesSlider from './SeriesSlider'
+import SeriesSlider from "./SeriesSlider";
 
 const TrendingSeries = () => {
   const [series, setSeries] = useState([]);
@@ -103,8 +101,8 @@ const TrendingSeries = () => {
 
     fetchSeries();
   }, [dispatch]);
-  
- const beginnerSeries = series.filter(
+
+  const beginnerSeries = series.filter(
     (item) => item?.level?.name === "Beginner"
   );
   const intermediateSeries = series.filter(
@@ -113,7 +111,7 @@ const TrendingSeries = () => {
   const advancedSeries = series.filter(
     (item) => item?.level?.name === "Advanced"
   );
-  console.log(series,'seriesseriesseries12344')
+  console.log(series, "seriesseriesseries12344");
   return (
     <div className="grid grid-cols-12 items-start justify-start">
       <div className="col-span-12 md:p-3">
@@ -146,7 +144,10 @@ const TrendingSeries = () => {
             ]} /> */}
 
             {intermediateSeries.length > 0 && (
-              <SeriesSlider title="Intermediate series" series={intermediateSeries} />
+              <SeriesSlider
+                title="Intermediate series"
+                series={intermediateSeries}
+              />
             )}
             {/* <SeriesSlider title={"Upper Intermdiate series"} videos={[
               { id: 1, src: "", title: "Stylish Show" },
@@ -156,12 +157,9 @@ const TrendingSeries = () => {
               { id: 5, src: "", title: "Spot The Differences" },
             ]} /> */}
 
-           {advancedSeries.length > 0 && (
+            {advancedSeries.length > 0 && (
               <SeriesSlider title="Advanced series" series={advancedSeries} />
             )}
-
-
-
           </div>
         )}
       </div>

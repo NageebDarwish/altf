@@ -48,7 +48,7 @@ const WatchLibrary = () => {
   });
 
   const loading = videosLoading || seriesLoading || historyLoading;
-  console.log(HistoryVideo, 'HistoryVideo')
+  console.log(HistoryVideo, "HistoryVideo");
 
   const items = [
     {
@@ -73,7 +73,6 @@ const WatchLibrary = () => {
     },
   ];
 
-
   const handleNavigation = (path) => {
     if (isAuthenticated) {
       navigate(path);
@@ -81,8 +80,6 @@ const WatchLibrary = () => {
       navigate("/Nodownload");
     }
   };
-
-
 
   // Handle errors from infinite scroll hooks
   useEffect(() => {
@@ -93,8 +90,8 @@ const WatchLibrary = () => {
       });
     }
   }, [videosError, seriesError, historyError]);
-  
-  console.log(list, 'listlistlist12345')
+
+  console.log(list, "listlistlist12345");
 
   return (
     <Box>
@@ -130,40 +127,62 @@ const WatchLibrary = () => {
       {/* Video Slider */}
       <Box>
         {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" height="300px">
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="300px"
+          >
             <CircularProgress color="secondary" />
           </Box>
         ) : (
           <>
             <div className="mt-10 md:mt-0 mb-20 md:mb-0 ">
-              {/* <CustomVideoSlider title="Downloads" icon={<BsDownload />} data={list} /> */}
-              <CustomVideoSlider title="Downloads" icon={<BsDownload className="w-5 h-5" />} data={""} />
+              <CustomVideoSlider
+                title="Downloads"
+                icon={<BsDownload className="w-5 h-5" />}
+                data={""}
+              />
               <CustomVideoSlider
                 title="Favorite videos"
-                icon={<img src="/library/Clapperboard Play.svg" alt="Favorite videos" className="w-5 h-5" />}
-                data={[
-                  ...(list?.videos || []),
-                  ...(list?.series_videos || [])
-                ]}
+                icon={
+                  <img
+                    src="/library/Clapperboard Play.svg"
+                    alt="Favorite videos"
+                    className="w-5 h-5"
+                  />
+                }
+                data={[...(list?.videos || []), ...(list?.series_videos || [])]}
               />
-              <SuperBeginnerSeriess 
-                title="Favorite series" 
-                icon={<img src="/library/Plaaylist Minimalistic.svg" alt="Favorite series" className="w-5 h-5" />} 
-                images={series} 
+              <SuperBeginnerSeriess
+                title="Favorite series"
+                icon={
+                  <img
+                    src="/library/Plaaylist Minimalistic.svg"
+                    alt="Favorite series"
+                    className="w-5 h-5"
+                  />
+                }
+                images={series}
               />
-              <CustomVideoSliderHistory 
-                title="Watch history" 
-                icon={<img src="/library/History.svg" alt="Watch history" className="w-5 h-5" />}  
+              <CustomVideoSliderHistory
+                title="Watch history"
+                icon={
+                  <img
+                    src="/library/History.svg"
+                    alt="Watch history"
+                    className="w-5 h-5"
+                  />
+                }
                 data={[
                   ...(HistoryVideo?.videos || []),
-                  ...(HistoryVideo?.series_videos || [])
-                ]} 
+                  ...(HistoryVideo?.series_videos || []),
+                ]}
               />
             </div>
           </>
         )}
       </Box>
-
     </Box>
   );
 };

@@ -31,7 +31,7 @@ const Content = () => {
     <>
       <div className="bg-white">
         {/* Pass the function as a prop */}
-        <section className="py-8 md:py-12 lg:py-16">
+        <section className="">
           <Herosection scrollToInput={scrollToInputSection} />
         </section>
         <section className="py-8 md:py-12 lg:py-16">

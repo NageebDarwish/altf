@@ -5,7 +5,9 @@ import MembershipCard from "./MembershipCard";
 const MembershipPlans = () => {
   const isAuthenticated = useSelector((state) => state?.user?.isAuthenticated);
   const isPremium = useSelector((state) => state?.user?.user?.is_premium);
-  const userSubscription = useSelector((state) => state?.user?.user?.subscription?.plan?.name);
+  const userSubscription = useSelector(
+    (state) => state?.user?.user?.subscription?.plan?.name
+  );
 
   // Hide entire section if user is premium
   if (isAuthenticated === "1" && isPremium === "1") {
@@ -62,7 +64,7 @@ const MembershipPlans = () => {
     <div className="py-16 px-6 sm:px-10 lg:px-16 bg-[#E4EFFF2E] font-helvetica">
       <div className="flex flex-col sm:flex-row items-center justify-between mb-8">
         <h2 className="text-largeLight underline underline-offset-8 text-gray-800">
-          Membership Plans
+          Pricing Plans
         </h2>
         {/* Toggle for Monthly/Yearly */}
         <div className="flex mt-4 sm:mt-0 rounded-md">
